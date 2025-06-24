@@ -6,9 +6,15 @@ const jwt = require("jsonwebtoken");
 const userRegister = async (req, res) => {
 
   const { username , email , password } = req.body;
+  console.log("req.body:", req.body);
+  console.log("req.file:", req.file);
 
-  if (!username || !email || !password) {
+  if (!username || !email || !password ) {
     return res.status(400).json({ msg: 'Please enter all fields' });
+  }
+
+  if (!req.file || !req.file.cloudinaryUrl) {
+    return res.status(400).json({ msg: 'Profile picture is required' });
   }
 
   try {
@@ -19,14 +25,16 @@ const userRegister = async (req, res) => {
 
     const salt = await bcrypt.genSalt(10);
     const hashPassword = await bcrypt.hash(password, salt);
-    
+
     const newUser = new User({
       username,
       email,
-      password: hashPassword
+      password: hashPassword,
+      profilePicture: req.file.cloudinaryUrl, 
     });
 
     await newUser.save();
+
     res.status(201).json({ 
       success: true,
       msg: 'User registered successfully', 
@@ -34,6 +42,7 @@ const userRegister = async (req, res) => {
         id: newUser._id,
         username: newUser.username,
         email: newUser.email,
+        profilePicture : req.file.cloudinaryUrl,
       }
     });
 
@@ -69,7 +78,8 @@ const userLogin = async (req, res) => {
     const payload = {
       id: user._id,
       username: user.username,
-      email: user.email
+      email: user.email,
+      
     };
     
     // console.log("JWT_SECRET in use:", process.env.JWT_SECRET);
@@ -83,6 +93,7 @@ const userLogin = async (req, res) => {
         id: user._id,
         username: user.username,
         email: user.email,
+        profilePicture: user.profilePicture,
       }
     });
 

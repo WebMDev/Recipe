@@ -1,9 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Heading from '../utility/Heading';
 import Card from '../utility/Card';
 import ButtonCommon from '../utility/ButtonCommon';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchRecipe } from '../redux/slices/AuthSlice';
 
 const Recipes = () => {
+
+  const dispatch = useDispatch();
+
+  const { recipes, loading, error} = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    dispatch(fetchRecipe());
+  }, [dispatch]);
+
   return (
     // Recipes Section
     <section className="common-padding">
@@ -26,8 +37,15 @@ const Recipes = () => {
             <ButtonCommon name={"Other Recipes"} style={'p-[13px_22px] normal-case border-1 border-[#DDDDDD] bg-[white]'}/>
           </div>
           <div className="flex justify-center items-center w-full pb-[28px]">
-            <Card />
-            <Card />
+
+            {/* { recipes && recipes.length > 0 ? ( 
+
+              <Card />
+              ) : !loading
+            } */}
+
+
+            {/* <Card />
             <Card />
             <Card />
           </div>
@@ -35,7 +53,7 @@ const Recipes = () => {
             <Card />
             <Card />
             <Card />
-            <Card />
+            <Card /> */}
           </div>
         </div>
 

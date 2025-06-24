@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FaWindowClose } from "react-icons/fa";
 import { Link, useNavigate } from 'react-router-dom';
 import { handleError, handlesuccess } from '../util';
 import { ToastContainer } from 'react-toastify';
+import { signUpThunk } from '../redux/slices/AuthSlice';
+import { useDispatch, useSelector } from 'react-redux';
 
 const Signup = () => {
 
@@ -13,8 +15,24 @@ const Signup = () => {
         password: "",
     });
 
-    const navigate = useNavigate();
+    const [img, setImg] = useState(null);
 
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    const { user, loading, error, successMessage } = useSelector(
+        (state) => state.auth
+    );
+
+    useEffect(() => {
+      if (successMessage) {
+        setTimeout(() => {
+            navigate("/login");
+        }, 1000);
+      }
+    
+    }, [successMessage, navigate]);
+    
     // Handler 
     const handleChange = (e) => {
 
@@ -22,6 +40,10 @@ const Signup = () => {
             ...prev,
             [e.target.name]: e.target.value,
         }));
+    };
+
+    const handleImageChange = (e) => {
+        setImg(e.target.files[0]);
     };
 
     const handleSubmit = async (e) => {
@@ -34,37 +56,48 @@ const Signup = () => {
             return handleError("username, email or passsword are required");
         }
 
-        try {
-            const url = 'http://localhost:8000/api/user/register';
+        const data = new FormData();
+        
+        data.append("username", username)
+        data.append("email", email)
+        data.append("password", password)
+        
+        console.log("Selected image:", img);
+        data.append("profilePicture", img)
 
-            const response = await fetch(url, {
-                method: 'POST',
-                headers:{
-                    'Content-type': 'application/json',
-                },
-                body: JSON.stringify(formData),
-            });
+        dispatch(signUpThunk(data));
 
-            const result = await response.json();
+        // try {
+        //     const url = 'http://localhost:8000/api/user/register';
 
-            const {success, msg} = result;
+        //     const response = await fetch(url, {
+        //         method: 'POST',
+        //         headers:{
+        //             'Content-type': 'application/json',
+        //         },
+        //         body: JSON.stringify(formData),
+        //     });
 
-            if(success) {
+        //     const result = await response.json();
 
-                handlesuccess(msg);
+        //     const {success, msg} = result;
+
+        //     if(success) {
+
+        //         handlesuccess(msg);
                 
-                setTimeout(() => {
-                    navigate('/login');
-                }, 1000)
-            } else {
-                handleError(msg);
-            }
+        //         setTimeout(() => {
+        //             navigate('/login');
+        //         }, 1000)
+        //     } else {
+        //         handleError(msg);
+        //     }
 
-            console.log(result);
+        //     console.log(result);
 
-        } catch (error) {
-            handleError(error);
-        }
+        // } catch (error) {
+        //     handleError(error);
+        // }
     };    
 
   return (
@@ -77,7 +110,7 @@ const Signup = () => {
 
             <h2 className="text-3xl fw-bold">Register</h2>
             
-            <form className="flex flex-col gap-6 p-6" onSubmit={handleSubmit}>
+            <form className="flex flex-col gap-6 p-6" onSubmit={handleSubmit} encType="multipart/form-data">
                 <input 
                     className="border-2 border-gray-400 w-[320px] h-[50px] px-3"
                     type="text"
@@ -103,6 +136,13 @@ const Signup = () => {
                     placeholder="Password"
                     value={formData.password}
                     onChange={handleChange}
+                />
+
+                <input 
+                    type="file" 
+                    accept="image/*" 
+                    onChange={handleImageChange} 
+                    className="border-2 border-gray-400 w-[320px] h-[50px] px-3"
                 />
 
                 <button 

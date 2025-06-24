@@ -11,6 +11,10 @@ app.use(express.json());
 app.use(cors());
 require('./config/db');
 
+app.get('/', (req, res) => {
+    res.send("Home page");
+})
+
 app.use('/api/user', userRoute);
 app.use('/api/recipe',  recipeRoute);
 

@@ -3,15 +3,18 @@ import { FaWindowClose } from "react-icons/fa";
 import { Link, useNavigate } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import { handleError, handlesuccess } from '../util';
+import { useDispatch } from 'react-redux';
+import { loginThunk } from '../redux/slices/AuthSlice';
 
-const Signup = () => {
+const Login = () => {
 
     // Form Input Data
     const [loginData, setLoginData] = useState({
         email: "",
         password: "",
     });
-
+    
+    const dispatch = useDispatch();
     const navigate = useNavigate();
 
     // Handler 
@@ -32,34 +35,46 @@ const Signup = () => {
           return handleError("email, password are required");
         }
 
-        try {
-            const url = 'http://localhost:8000/api/user/login';
-
-            const response = await fetch(url, {
-                method: "POST",
-                headers:{
-                    'Content-type': 'application/json',
-                },
-                body: JSON.stringify(loginData),
+        dispatch(loginThunk(loginData))
+            .unwrap()
+            .then((res) => {
+                handlesuccess(res.msg || "Login successful");
+                setTimeout(() => {
+                    navigate("/");
+                }, 500);
+            })
+            .catch((err) => {
+                handleError(err || "Login failed");
             });
 
-            const result = await response.json();
+        // try {
+        //     const url = 'http://localhost:8000/api/user/login';
 
-            const { success, msg , token } = result;
+        //     const response = await fetch(url, {
+        //         method: "POST",
+        //         headers:{
+        //             'Content-type': 'application/json',
+        //         },
+        //         body: JSON.stringify(loginData),
+        //     });
 
-            if(success) {
-                handlesuccess(msg);
-                localStorage.setItem("token", result.token);
-                setTimeout(() => {
-                    navigate('/home');
-                }, 1000);
-            }
+        //     const result = await response.json();
 
-            console.log(result);
+        //     const { success, msg , token } = result;
 
-        } catch (error) {
-            handleError(error);
-        }
+        //     if(success) {
+        //         handlesuccess(msg);
+        //         localStorage.setItem("token", result.token);
+        //         setTimeout(() => {
+        //             navigate('/home');
+        //         }, 1000);
+        //     }
+
+        //     console.log(result);
+
+        // } catch (error) {
+        //     handleError(error);
+        // }
     };
 
   return (
@@ -112,4 +127,4 @@ const Signup = () => {
   )
 }
 
-export default Signup;
+export default Login;

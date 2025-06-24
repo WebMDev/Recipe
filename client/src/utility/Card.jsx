@@ -1,5 +1,5 @@
 import React from 'react';
-import Food1 from "../assets/recipe/recipe-2-550x690.jpg";
+// import img from "../assets/recipe/recipe-2-550x690.jpg";
 import STAR from "../assets/svgImg/Star.svg";
 import Heart from "../assets/svgImg/Heart.svg";
 import Bookmark from "../assets/svgImg/Bookmark.svg";
@@ -8,12 +8,13 @@ import ct1 from "../assets/svgImg/ct-1.svg";
 import Cheaf from "../assets/svgImg/Cheaf.svg";
 import {Infocard} from "../assets/contant";
 
-const Card = () => {
+
+const Card = ({ img, desc , title}) => {
   return (
     // Card Section with Utility
     <div className="flex flex-col items-center px-2">
         <div className="relative w-[328px] h-[428px] pb-[12px]">
-            <img src={Food1} className="w-full h-full rounded-xl object-center" alt="" />
+            <img src={img} className="w-full h-full rounded-xl object-center" alt={title} />
 
             <ul className="w-full pt-2 flex justify-between items-start absolute top-[0.5rem] left-[1rem]">
 
@@ -32,13 +33,12 @@ const Card = () => {
             </ul>
         </div>
 
-        <div className="flex flex-col w-[328px]">
             {
-                Infocard.map((item, i) => {
+                Infocard.map((item, _id) => {
                     return (
-                        <>
-                            <h6 className="text-[red] font-[500] pt-[5px] text-[16px]" heading={item.heading}>Pasta</h6>
-                            <p className="text-[22px] font-[600] pt-[5px]">Creamy Garlic Mushroom Penne Pasta</p>
+                        <div className="flex flex-col w-[328px]" key={_id}>
+                            <h6 className="text-[red] font-[500] pt-[5px] text-[16px]" heading={item.heading}>{title}</h6>
+                            <p className="text-[22px] font-[600] pt-[5px]">{desc}</p>
 
                             <ul className="flex justify-start items-center gap-5 pt-[15px]">
 
@@ -57,12 +57,11 @@ const Card = () => {
                                     <span className="text-[14px]">Beginner</span>
                                 </li>
                             </ul>
-                        </>
+                        </div>
                     )
                 })
             }
         </div>
-    </div>
   )
 }
 

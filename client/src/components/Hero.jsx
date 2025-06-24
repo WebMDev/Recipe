@@ -1,14 +1,25 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import HERO from "../assets/search-hero-2.jpg"
 import FoodSafe from "../assets/svgImg/foodSafe.svg"
 import { FaMagnifyingGlass } from 'react-icons/fa6';
 import Card from '../utility/Card';
 import ButtonRed from '../utility/ButtonRed';
-
-
-
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchRecipe } from '../redux/slices/AuthSlice';
+import { Link } from 'react-router-dom';
 
 const Hero = () => {
+
+  const dispatch = useDispatch();
+
+  const { recipes, loading, error} = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    dispatch(fetchRecipe());
+  }, [dispatch]);
+
+  // console.log("rec", recipes);
+
   return (
     // Hero Section
     <section className="font-(family-name:--font-family)">
@@ -16,7 +27,7 @@ const Hero = () => {
         {/* Hero Search Section */}
         <div className="mt-[5px] px-[12px] relative w-full">
             <img src={HERO} className="rounded-2xl w-full" alt="" />
-            <div className="absolute top-0 left-[14%] my-[200px] flex flex-col justify-start h-full w-[680px]">
+            <div className="absolute top-0 bottom-0 left-[14%] py-[200px] flex flex-col justify-start h-full w-[680px]">
 
               <h3 className="text-[52px] leading-[1.1] mb-6 font-[600] w-full">You don't know how to make the dish you have in mind?</h3>
 
@@ -43,12 +54,28 @@ const Hero = () => {
             <li className="text-[22px] font-[500] text-[#A1A1A1]">Fatest Recipes</li>
             <li className="text-[22px] font-[500] text-[#A1A1A1]">Editor's Choice</li>
           </ul>
-          <div className="flex justify-between items-center px-2">
+          <div className="flex justify-start items-center px-2">
+
+            { recipes && recipes.length > 0 ? (
+              recipes.slice(0, 5).map((item, index) => (
+                <Link to={"/recipeinfo"}>
+                  <Card 
+                  key={item._id || index}
+                  img={item.image || img}
+                  title={item.title}
+                  desc={item.description}
+                />
+                </Link>
+              ))
+            ) : (
+              !loading && <p className="col-span-5 text-center">No recipe found.</p>
+              
+            )}
+
+            {/* <Card />
             <Card />
             <Card />
-            <Card />
-            <Card />
-            <Card />
+            <Card /> */}
           </div>
         </div>
     </section>
