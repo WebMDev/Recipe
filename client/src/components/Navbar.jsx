@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import LOGO from "../assets/svgImg/Logo.svg";
+import LOGO from "../assets/svgImg/logo.svg";
 import { FaAngleDown, FaBars, FaTimes } from "react-icons/fa";
 import { MdBookmarkBorder } from "react-icons/md";
 import { LuUser } from "react-icons/lu";

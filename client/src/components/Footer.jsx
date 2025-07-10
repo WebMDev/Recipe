@@ -2,7 +2,7 @@ import React from 'react';
 
 import Heading from '../utility/Heading';
 import { FaInstagram, FaXTwitter, FaYoutube, FaPinterestP } from "react-icons/fa6";
-import LOGO from "../assets/svgImg/Logo.svg";
+import LOGO from "../assets/svgImg/logo.svg";
 import ButtonCommon from '../utility/ButtonCommon';
 
 const Footer = () => {

@@ -1,6 +1,6 @@
 import React from 'react';
 import HERO2 from "../assets/section-bg.jpg";
-import STAR from "../assets/svgImg/Star.svg";
+import STAR from "../assets/svgImg/star.svg";
 
 const Rating_FoodView = () => {
   return (
