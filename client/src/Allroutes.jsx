@@ -45,7 +45,7 @@ const Allroutes = () => {
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/addrecipe" element={<AddRecipe />} />
                 <Route path="/createRecipeForm" element={<CreateRecipeForm />} />
-                <Route path="/recipeinfo" element={<RecipeInfo />} />
+                <Route path="/recipeinfo/:id" element={<RecipeInfo />} />
             </Routes>
 
             {!hiddenRoutes && <Footer />}

@@ -1,11 +1,11 @@
-import Img from "../../assets/taxonomies-bg.svg";
-import Heading from "../../utility/Heading";
-import ButtonRed from "../../utility/ButtonRed";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createRecipeThunk } from "../../redux/slices/AuthSlice";
 import { useNavigate } from "react-router-dom";
 import { handleError } from "../../util";
+import Img from "../../assets/taxonomies-bg.svg";
+import Heading from "../../utility/Heading";
+import ButtonRed from "../../utility/ButtonRed";
 
 const AddRecipe = () => {
   const dispatch = useDispatch();

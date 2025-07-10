@@ -4,6 +4,7 @@ import Card from '../utility/Card';
 import ButtonCommon from '../utility/ButtonCommon';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchRecipe } from '../redux/slices/AuthSlice';
+import { Link } from 'react-router-dom';
 
 const Recipes = () => {
 
@@ -36,20 +37,25 @@ const Recipes = () => {
             
             <ButtonCommon name={"Other Recipes"} style={'p-[13px_22px] normal-case border-1 border-[#DDDDDD] bg-[white]'}/>
           </div>
-          <div className="flex justify-center items-center w-full pb-[28px]">
+          <div className="flex justify-center items-center flex-wrap w-full">
 
-            {/* { recipes && recipes.length > 0 ? ( 
+            { recipes && recipes.length > 0 ? (
+              recipes.slice(0, 8).map((item, index) => (
+                <Link to={`/recipeinfo/${item._id}`}>
+                  <Card 
+                  key={item._id || index}
+                  img={item.image || img}
+                  title={item.title}
+                  desc={item.description}
+                  style={"pb-10"}
+                />
+                </Link>
+              ))
+            ) : (
+              !loading && <p className="col-span-5 text-center">No recipe found.</p>
+            )}
 
-              <Card />
-              ) : !loading
-            } */}
-
-
-            {/* <Card />
-            <Card />
-            <Card />
-          </div>
-          <div className="flex justify-center items-center w-full">
+          {/* <div className="flex justify-center items-center w-full">
             <Card />
             <Card />
             <Card />

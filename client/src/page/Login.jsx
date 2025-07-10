@@ -41,7 +41,7 @@ const Login = () => {
                 handlesuccess(res.msg || "Login successful");
                 setTimeout(() => {
                     navigate("/");
-                }, 500);
+                }, 1000);
             })
             .catch((err) => {
                 handleError(err || "Login failed");

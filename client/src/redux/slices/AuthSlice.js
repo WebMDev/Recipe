@@ -48,6 +48,21 @@ export const fetchRecipe = createAsyncThunk(
     }
 )
 
+// export const fetchRecipe = createAsyncThunk(
+//     "/recipe",
+//     async ( _ , { rejectWithValue }) => {
+//         try {
+//             const response = await axios.get(
+//                 "http://localhost:8000/api/recipe/:id"
+//             );
+//             // console.log(response);
+//             return response.data;
+//         } catch (err) {
+//             return rejectWithValue(err.response?.data?.error || "Failed fetch recipe");
+//         }
+//     }
+// )
+
 // Create recipe thunk
 export const createRecipeThunk = createAsyncThunk(
     "recipe/create",

@@ -3,16 +3,16 @@ import React from 'react';
 import STAR from "../assets/svgImg/Star.svg";
 import Heart from "../assets/svgImg/Heart.svg";
 import Bookmark from "../assets/svgImg/Bookmark.svg";
-import Watch from "../assets/svgImg/Watch.svg";
+import Watch from "../assets/svgImg/watch.svg";
 import ct1 from "../assets/svgImg/ct-1.svg";
 import Cheaf from "../assets/svgImg/Cheaf.svg";
 import {Infocard} from "../assets/contant";
 
 
-const Card = ({ img, desc , title}) => {
+const Card = ({ img, desc , title , style}) => {
   return (
     // Card Section with Utility
-    <div className="flex flex-col items-center px-2">
+    <div className={`flex flex-col items-center px-2 ${style}`}>
         <div className="relative w-[328px] h-[428px] pb-[12px]">
             <img src={img} className="w-full h-full rounded-xl object-center" alt={title} />
 

@@ -3,92 +3,110 @@ import { GiCurvyKnife } from "react-icons/gi";
 import Heading from '../utility/Heading';
 import avatar from "../assets/avatar/avatar-200x200.jpg"
 import Img from "../assets/taxonomies-bg.svg";
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 const RecipeInfo = () => {
 
-    // const [recipe, setRecipe] = useState([]);
+    const [recipe, setRecipe] = useState({});
 
-    // const fetchRecipes = async () => {
+    const { id } =  useParams();
 
-    //     try {
-    //         const url = 'http://localhost:8000/api/recipe';
+    const fetchRecipes = async () => {
 
-    //         const response = await fetch((url) => {
-    //             method: "GET",
-    //             'Authorization': ,
-    //         })
-    //     } catch (error) {
-            
-    //     }
-    // }
+        const url = `http://localhost:8000/api/recipe/${id}`;
+
+        const response = await fetch(url);
+
+        const data = await response.json();
+
+        setRecipe(data);
+    }
+
+    useEffect(() => {
+        fetchRecipes();
+    }, [id]);
+
+    useEffect(() => {
+        console.log(recipe); // ✅ Check what's inside
+    }, [recipe]);
+
 
   return (
     // Recipe page section
-    <section className="h-[100vh] flex flex-col justify-center items-center w-full bg-[#F4F4F4]">
-        <div className="flex justify-center items-center w-[800px] h-[850px] my-[40px] border-1 rounded-[30px] border-[#DDDDDD] bg-red-400 relative font-(family-name:--font-family)">
+    <section className="min-h-[100vh] flex flex-col justify-center items-center w-full bg-[#F4F4F4]">
+        <div className="flex justify-center items-center w-[800px] min-h-[550px] my-[40px] border-1 rounded-[30px] border-[#DDDDDD] bg-red-400 relative font-(family-name:--font-family)">
 
-            <img src={img} className="absolute z-2 left-[-12%] rounded-[30px] w-[400px] min-h-[80%]" alt="" />
-            {/* {image} */}
-
-            <div className="flex flex-col items-start bg-amber-300 w-[400px] min-h-[80%] border-0 rounded-[30px] border-[#A1A1A1] absolute z-1 top-[50%] left-[60%] transform -translate-x-1/2 -translate-y-1/2 py-10">
-
-                <div className="mb-10 text-2xl text-center px-[30px] bg-white w-full">
-                    <h2 className="text-[36px] font-[700]">
-                        {/* {ingredients} */}
-                        Ingredient    
-                    </h2> 
-                </div>
-                
-                <ul className="flex flex-col items-center px-10 text-[18px] font-[500]">
-                    <li className="flex justify-center items-center gap-2 pb-3"><GiCurvyKnife className="text-[olive] text-xl"/>pasta (like penne)</li> 
-                    <li className="flex justify-center items-center gap-2 pb-3"><GiCurvyKnife className="text-[olive] text-xl"/>mushrooms</li> 
-                    <li className="flex justify-center items-center gap-2 pb-3"><GiCurvyKnife className="text-[olive] text-xl"/>garlic</li> 
-                    <li className="flex justify-center items-center gap-2 pb-3"><GiCurvyKnife className="text-[olive] text-xl"/>cream (or heavy cream)</li> 
-                    <li className="flex justify-center items-center gap-2 pb-3"><GiCurvyKnife className="text-[olive] text-xl"/>butter or olive oil</li> 
-                    <li className="flex justify-center items-center gap-2 pb-3"><GiCurvyKnife className="text-[olive] text-xl"/>parmesan cheese</li>
-                    <li className="flex justify-center items-center gap-2 pb-3"><GiCurvyKnife className="text-[olive] text-xl"/>seasonings like salt and pepper</li>
-                </ul>
-            </div>            
-        </div>
-        <div className="common-padding w-full h-[450px] relative bg-white">
-            <img src={Img} className="h-[50%] absolute left-0 bottom-[0px] w-full" alt="" />
+            <img src={recipe.image} className="absolute z-2 left-[-12%] rounded-[30px] w-[400px] min-h-[80%]" alt="" />
             
-            <div className="flex justify-center items-center gap-8 p-6 absolute top-[20px]">
 
-                <div className="w-[50%] px-5 ">
-                    {/* {description} */}
-                    <Heading name={'With a Delicious Description'} desc={'Savor the perfect comfort dish — penne pasta tossed in a rich, velvety cream sauce infused with garlic and butter, generously loaded with sautéed mushrooms. Finished with a sprinkle of parmesan cheese and balanced with a touch of salt and pepper, this dish delivers a creamy, savory flavor in every bite.'}/>
-                    <p className="font-[500] uppercase">
-                        {/* {steps} */}
-                        Boil, Cook, mix with sauce
-                    </p>
-                </div>
-
-                <div className="flex flex-col items-start gap-4 px-5 border-l-2 border-[#DDDDDD]">
-
-                    <h4 className="text-xl font-[800] w-[80%]">
-                        {/* {titile} */}
-                        Creamy Garlic Mushroom Penne Pasta
+            <div className="flex flex-col items-center gap-6 bg-amber-300 w-[400px] min-h-[70%] border-0 rounded-[30px] border-[#A1A1A1] absolute z-1 top-[50%] left-[60%] transform -translate-x-1/2 -translate-y-1/2 py-10">
+                
+                <div className="flex flex-col items-start justify-center">
+                    <h4 className="text-xl font-[800] w-[80%] text-[red]">
+                        {recipe.title}
+                        
                     </h4>
                     <p className="font-[500] uppercase">
-                        {/* {tags}  */}
-                        Italian
+                        {recipe.description}
                     </p>
+                </div>
 
-                    <div className="flex justify-center items-center gap-3 ">
+                <div className="flex justify-start items-center gap-3 w-[75%]">
 
-                        <img src={avatar} className="h-[50px] w-[50px] rounded-[50%]" alt="" />
+                    <img src={avatar} className="h-[50px] w-[50px] rounded-[50%]" alt="" />
 
-                        <span className="flex flex-col items-start font-[700]">
+                    <span className="flex flex-col items-start font-[700]">
 
-                            <h6 className="text-[18px]">
-                                {/* {author} */}
-                                Olivia Thompson
-                            </h6>
-                            <p className="text-[#A1A1A1]">Recipe Author</p>
-                        </span>
+                        <h6 className="text-[18px]">
+                            {recipe.author?.username}
+                            
+                        </h6>
+                        <p className="text-[#A1A1A1]">Recipe Author</p>
 
-                    </div>
+                    </span>
+
+                </div>
+                
+                <span className="text-[red] w-[75%]">{recipe.tags}</span>
+                
+            </div>            
+        </div>
+
+        <div className="w-full min-h-[560px] flex justify-between items-start relative bg-white common-padding">
+            
+            <div className="flex justify-between items-start w-full pt-7">
+                <img src={Img} className="h-[30%] absolute left-0 bottom-[0px] w-full" alt="" />
+
+                <div className="w-[40%] flex flex-col items-center gap-8 mr-10 border-r-2 border-[#DDDDDD]">
+
+                    <h2 className="text-[36px] font-[600] border-b-2 border-[red]">Ingredient</h2> 
+
+                    <ul className="flex flex-col items-end text-[15px] font-mono">
+                    
+                        {/* {console.log(recipe.ingredients)} */}
+                        {recipe.ingredients && recipe.ingredients.map((item, index) => (
+                            
+                            <li className="flex justify-center items-center gap-2 text-[14px] w-full pb-2" key={index} >
+                                <GiCurvyKnife className="text-[olive] text-[18px]"/>
+                                <span className="w-full">
+                                    {typeof item === "string" ? item : item.ingredient}
+                                </span>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+                
+                <div className="text-[16px] w-[75%] flex flex-col gap-8 ">
+
+                    <h2 className="text-[36px] font-[600] border-b-2 border-[red] w-fit">Prepare the Ingredients</h2>
+
+                    <ul className="flex flex-col items-start gap-4 ">
+                        {recipe.steps && recipe.steps.map((step, index) => (
+
+                            <li key={index} className="mb-2 "> - {step}</li>
+                        ))}
+                    </ul>
                 </div>
             </div>
         </div>

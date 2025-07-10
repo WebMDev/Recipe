@@ -41,16 +41,16 @@ const getRecipes = async (req, res) => {
 
 // Single Product to show by Id
 const getRecipeById = async (req, res) => {
-  // try {
-  //   const recipe = await Recipe.findById(req.params.id).populate('author', 'username email');
-  //   if (!recipe) {
-  //     return res.status(404).json({ msg: "Recipe not found" });
-  //   }
-  //   res.status(200).json(recipe);
-  // } catch (error) {
-  //   console.log(error);
-  //   res.status(500).json({ msg: 'Server error' });
-  // }
+  try {
+    const recipe = await Recipe.findById(req.params.id).populate('author', 'username email');
+    if (!recipe) {
+      return res.status(404).json({ msg: "Recipe not found" });
+    }
+    res.status(200).json(recipe);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ msg: 'Server error' });
+  }
 }
 
 // Update Recipe by Id
