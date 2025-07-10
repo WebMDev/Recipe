@@ -1,11 +1,11 @@
 import React from 'react';
 // import img from "../assets/recipe/recipe-2-550x690.jpg";
-import STAR from "../assets/svgImg/Star.svg";
-import Heart from "../assets/svgImg/Heart.svg";
-import Bookmark from "../assets/svgImg/Bookmark.svg";
+import STAR from "../assets/svgImg/star.svg";
+import Heart from "../assets/svgImg/heart.svg";
+import Bookmark from "../assets/svgImg/bookmark.svg";
 import Watch from "../assets/svgImg/watch.svg";
 import ct1 from "../assets/svgImg/ct-1.svg";
-import Cheaf from "../assets/svgImg/Cheaf.svg";
+import Cheaf from "../assets/svgImg/cheaf.svg";
 import {Infocard} from "../assets/contant";
 
 
