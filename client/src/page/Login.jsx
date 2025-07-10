@@ -8,7 +8,7 @@ import { loginThunk } from '../redux/slices/AuthSlice';
 
 const Login = () => {
 
-    // Form Input Data
+    // Form Input Data 
     const [loginData, setLoginData] = useState({
         email: "",
         password: "",

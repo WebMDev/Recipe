@@ -49,7 +49,7 @@ const Signup = () => {
     const handleSubmit = async (e) => {
         // data holding and not refresh
         e.preventDefault();
-
+ 
         const {username, email, password} = formData;
 
         if (!username || !email || !password) {

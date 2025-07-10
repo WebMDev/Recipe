@@ -21,7 +21,7 @@ const upload = multer({ storage });
  
 // Middleware to upload to Cloudinary
 const uploadToCloudinary = async (req, res, next) => {
-  console.log(req.file, "jsdj");
+    console.log("Multer File Object:", req.file); 
  
   if (!req.file) return next();
  
