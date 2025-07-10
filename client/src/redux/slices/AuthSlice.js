@@ -5,7 +5,7 @@ import { handleError, handlesuccess } from "../../util";
 export const signUpThunk = createAsyncThunk("auth/register", 
     async (data) => {
         const response = await axios.post( 
-            `${process.env.REACT_APP_API_URL}/user/register`, 
+            `${process.env.REACT_APP_BACKEND_URL}/user/register`, 
             data
         );
 
@@ -19,7 +19,7 @@ export const loginThunk = createAsyncThunk(
     "auth/login",
     async(data, { rejectWithValue }) => {
         try {
-            const response = await axios.post(`${process.env.REACT_APP_API_URL}/user/login`, data);
+            const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/user/login`, data);
 
             console.log(response);
             // save token to localStorage
@@ -36,7 +36,7 @@ export const fetchRecipe = createAsyncThunk(
     "/recipe",
     async ( _ , { rejectWithValue }) => {
         try {
-            const response = await axios.get(`${process.env.REACT_APP_API_URL}/recipe`);
+            const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/recipe`);
 
             // console.log(response);
             return response.data;
@@ -68,7 +68,7 @@ export const createRecipeThunk = createAsyncThunk(
         try {
             const token = localStorage.getItem("token");
             const response = await axios.post(
-                `${process.env.REACT_APP_API_URL}/recipe`,
+                `${process.env.REACT_APP_BACKEND_URL}/recipe`,
                 formData,
                 {
                     headers: {
