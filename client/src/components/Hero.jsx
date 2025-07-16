@@ -58,13 +58,13 @@ const Hero = () => {
 
             { recipes && recipes.length > 0 ? (
               recipes.slice(0, 5).map((item, index) => (
-                <Link to={"/recipeinfo"}>
+                <Link key={item._id} to={"/recipeinfo"}>
                   <Card 
-                  key={item._id || index}
-                  img={item.image || img}
-                  title={item.title}
-                  desc={item.description}
-                />
+                    key={item._id || index}
+                    img={item.image || img}
+                    title={item.title}
+                    desc={item.description}
+                  />
                 </Link>
               ))
             ) : (

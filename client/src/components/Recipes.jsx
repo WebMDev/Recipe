@@ -41,14 +41,14 @@ const Recipes = () => {
 
             { recipes && recipes.length > 0 ? (
               recipes.slice(0, 8).map((item, index) => (
-                <Link to={`/recipeinfo/${item._id}`}>
+                <Link key={item._id} to={`/recipeinfo/${item._id}`}>
                   <Card 
-                  key={item._id || index}
-                  img={item.image || img}
-                  title={item.title}
-                  desc={item.description}
-                  style={"pb-10"}
-                />
+                    key={item._id || index}
+                    img={item.image || img}
+                    title={item.title}
+                    desc={item.description}
+                    style={"pb-10"}
+                  />
                 </Link>
               ))
             ) : (
